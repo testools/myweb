@@ -18,11 +18,14 @@ class SysDataBase
         $this->DBconnect = NewADOConnection($this->type);
         try {
             $this->DBconnect->Connect($this->server, $this->user, $this->pwd, $this->db);
+            $this->DBconnect->SetFetchMode(ADODB_FETCH_ASSOC);;
         } catch (Exception $e) {
             unset($this);
             echo 'Unable connect to DB';
             exit;
         }
+        global $DB;
+        $DB = $this->DBconnect;
     }
     
     public function getValueDb()

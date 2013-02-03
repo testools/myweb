@@ -25,7 +25,7 @@ if ($SysInit->_beforeStart() !== false and ($autoran = $SysInit->_autorunStart()
 
 //redirect to error page
 
-$smarty = new Smarty();
+/*$smarty = new Smarty();
 
 $smarty->template_dir = SITE_DIR_NAME_PATCH.DS.'templates/';
 $smarty->compile_dir = CACHE_TMP_FOLDER.'templates_c/';
@@ -38,7 +38,7 @@ $smarty->assign('name', 'Привет');
 $smarty->display('frontend/home/index.tpl');
 $smarty->display('index.tpl');
 //$output = $smarty->fetch("index.tpl");
-//echo $output;
+//echo $output;*/
 exit;
 
 /*$DB = NewADOConnection('mysql');

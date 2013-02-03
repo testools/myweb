@@ -15,7 +15,7 @@ class SysInit{
         while (($file = readdir($dh)) !== false) {
             if ($file != "." && $file != "..") {
                 if ($enviroment) {
-                    $patern = '/.+'.$enviroment.'Controller\.class\.php$/';
+                    $patern = '/.+'.$enviroment.'(Controller|DB)\.class\.php$/';
                 } else {
                     $patern = '/.+\.class\.php$/';
                 }
