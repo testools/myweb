@@ -20,6 +20,10 @@ class RunController
         if (class_exists($className)) {
             $SysSmarty = new SysSmarty();
             $SysDataBase = new SysDataBase();
+            if (!$this->isAllow(2, $this->enviroment, $this->mod, $this->act, $this->task)) {
+                throw new Exception("Access denied $metodName in $className.");
+                exit;
+            }
             $SysSmarty->init(true);
             $controller = new $className($SysDataBase->getValueDb(), $SysSmarty->smarty, $this->mod, $this->act, $this->task);
             $metodName = 'get'.ucfirst($this->act);
@@ -29,5 +33,17 @@ class RunController
                 throw new Exception("Unable to load $metodName in $className.");
             }
         }
+    }
+    
+    function isAllow($groupId, $enviroment, $mod, $act)
+    {
+        if($enviroment and $mod and $act) {
+            $parentDb = new ParentDB();
+            $res = $parentDb->getStoredProc('group_getAllow', array($groupId, $enviroment, $mod, $act));
+            if ($res !== false and isset($res[1]) and $res[1] === '1') {
+                return true;
+            }
+        }
+        return false;
     }
 }
