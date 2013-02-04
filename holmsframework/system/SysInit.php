@@ -35,8 +35,14 @@ class SysInit{
     
     function _beforeStart()
     {
-        $this->enviroment = SysConfig::getEnviroment();
-        if($responsParam = SysUri::getParam()) {
+        $res = SysConfig::getEnviroment();
+        if($res !== false){
+            $this->enviroment = $res['name'];
+            $value = $res['value'];
+        } else {
+            return false;
+        }
+        if($responsParam = SysUri::getParam($this->enviroment, $value)) {
             if(isset($responsParam['mod']) and isset($responsParam['act']) and isset($responsParam['task'])) {
                 $this->mod = $responsParam['mod'];
                 $this->act = $responsParam['act'];
@@ -55,6 +61,14 @@ class SysInit{
         }
 
         return SysConfig::getSystemAutorun($this->enviroment);
+    }
+    
+    function _afterRun()
+    {
+        global $SysSmarty, $SMARTY_TEMPLATE_DEFAULT;
+        $SysSmarty->assign('SMARTY_TEMPLATE_DEFAULT', $SMARTY_TEMPLATE_DEFAULT);
+        $SysSmarty->display($this->enviroment.DS.'index.tpl');
+        
     }
     
     function _includeEnviroment()

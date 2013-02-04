@@ -1,9 +1,17 @@
 <?php
 class SysUri{
-    public static function getParam() {
+    public static function getParam($enviroment = false, $enviromentUri = false) {
         $requestUri = $_SERVER['REQUEST_URI'];
+        if ($enviroment and $enviromentUri and $enviromentUri !== '/') {
+            $requestUri = str_replace($enviromentUri, '', $requestUri);
+        }
         foreach (SysUri::getConfigUri() as $key=>$value) {
             if(preg_match('/.+\.route\..+$/', $key)) {
+                if ($enviroment) {
+                    if (!preg_match('/.+\.route\..+\.(.*?)$/', $key, $match) or end($match) !== $enviroment) {
+                        continue;
+                    }
+                }
                 if(preg_match_all('#^'.$value.'$#', $requestUri, $out, PREG_PATTERN_ORDER)) {
                     $res = SysUri::getAllParamByName(SysUri::getNameInParam($key));
                     if($res !== false){

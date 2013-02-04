@@ -19,6 +19,8 @@ if ($SysInit->_beforeStart() !== false and ($autoran = $SysInit->_autorunStart()
         $RunController = new RunController($SysInit->enviroment, $SysInit->mod, $SysInit->act);
         $RunController->run();
     }
+    
+    $SysInit->_afterRun();
 }
 
 

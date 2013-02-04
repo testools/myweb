@@ -1,12 +1,9 @@
 <?php
-class HomeFrontendController extends ParentController
+class PermissionAdminController extends ParentController
 {
 
     public function getDefault()
     {
-        /*$homeFrontendDB = new HomeFrontendDB();
-        $homeFrontendDB->getAutorizeUser();*/
-        $this->smarty->assign('name', 'Имя');
     }
     
     public function getView()

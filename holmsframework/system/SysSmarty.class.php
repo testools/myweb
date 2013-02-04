@@ -11,6 +11,6 @@ class SysSmarty
         $SysSmarty->config_dir = CACHE_TMP_FOLDER.'configs/';
         $SysSmarty->cache_dir = CACHE_TMP_FOLDER.'cache/';
         $SysSmarty->debugging = $debug;
-        $smarty = $SysSmarty;
+        $this->smarty = $SysSmarty;
     }
 }

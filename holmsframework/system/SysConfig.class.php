@@ -65,7 +65,8 @@ class SysConfig{
             foreach ($resArray['environment'] as $key=>$value) {
                 if(strstr($requet, $value, true) !== false) {
                     $findme = 'environment.';
-                    return substr($key, strrpos($key , $findme) + strlen($findme));
+                    return array('name' => substr($key, strrpos($key , $findme) + strlen($findme)),
+                        'value' => $value);
                 }
             }
         }

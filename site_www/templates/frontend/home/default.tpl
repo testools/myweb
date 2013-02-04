@@ -7,7 +7,7 @@
 
 Home Information:<p>
 
-Name: {$name|capitalize}<br>
+Name: {$name}<br>
 
 </body>
 </html>

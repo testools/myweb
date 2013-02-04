@@ -20,12 +20,12 @@ class RunController
         if (class_exists($className)) {
             $SysSmarty = new SysSmarty();
             $SysDataBase = new SysDataBase();
-            if (!$this->isAllow(2, $this->enviroment, $this->mod, $this->act, $this->task)) {
-                throw new Exception("Access denied $metodName in $className.");
+            if (!$this->isAllow(1, $this->enviroment, $this->mod, $this->act, $this->task)) {
+                throw new Exception("Access denied in $className.");
                 exit;
             }
             $SysSmarty->init(true);
-            $controller = new $className($SysDataBase->getValueDb(), $SysSmarty->smarty, $this->mod, $this->act, $this->task);
+            $controller = new $className($SysDataBase->getValueDb(), $SysSmarty->smarty, $this->enviroment, $this->mod, $this->act, $this->task);
             $metodName = 'get'.ucfirst($this->act);
             if (method_exists($controller, $metodName)) {
                 $controller->$metodName();
